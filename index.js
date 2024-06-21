@@ -177,3 +177,5 @@ io.on("connection", (socket) => {
 server.listen(4000, () => {
   console.log("listening on http://localhost:4000");
 });
+
+module.exports = app;
