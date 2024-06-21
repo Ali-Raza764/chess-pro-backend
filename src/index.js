@@ -4,9 +4,10 @@ const http = require("http");
 const server = http.createServer(app);
 const io = require("socket.io")(8000, {
   cors: {
-    origin: ["http://localhost:5173", "http://localhost:3000"],
+    origin: [process.env.NODE_CLIENT_URL],
   },
 });
+require("dotenv").config()
 
 app.get("/", (req, res) => {
   res.send({
@@ -173,6 +174,6 @@ io.on("connection", (socket) => {
     io.emit("updateOnlinePlayers", online_players);
   });
 });
-server.listen(3000, () => {
-  console.log("listening on http://localhost:3000");
+server.listen(4000, () => {
+  console.log("listening on http://localhost:4000");
 });
