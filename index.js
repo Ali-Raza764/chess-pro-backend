@@ -1,18 +1,7 @@
-const express = require("express");
-const app = express();
-const http = require("http");
-const server = http.createServer(app);
-const io = require("socket.io")(8000, {
+const io = require("socket.io")(4000, {
   cors: {
-    origin: [process.env.NODE_CLIENT_URL, "http://localhost:3000"],
+    origin: ["http://localhost:5173", "http://localhost:3000", "https://chess-pro.vercel.app"],
   },
-});
-require("dotenv").config()
-
-app.get("/", (req, res) => {
-  res.send({
-    message: "This is a server with socket io",
-  });
 });
 
 const rooms = {}; // Assuming you have this global object to keep track of rooms
@@ -139,7 +128,8 @@ io.on("connection", (socket) => {
   });
 
   socket.on("move", (move, roomId) => {
-    socket.to(roomId).emit("makemove", move);
+    console.log(roomId);
+    socket.to(roomId).emit("opponentMoved", move);
   });
 
   socket.on("gameover", (roomId) => {
@@ -174,8 +164,3 @@ io.on("connection", (socket) => {
     io.emit("updateOnlinePlayers", online_players);
   });
 });
-server.listen(4000, () => {
-  console.log("listening on http://localhost:4000");
-});
-
-module.exports = app;
