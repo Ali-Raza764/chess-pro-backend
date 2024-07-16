@@ -2,10 +2,11 @@
   "name": "chess-pro-backend",
   "version": "1.0.0",
   "description": "Server for chess-pro",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon index.js"
+    "start": "node server.js",
+    "dev": "node server.js"
   },
   "author": "",
   "license": "ISC",
